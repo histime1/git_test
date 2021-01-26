@@ -1,0 +1,297 @@
+# Cttl Shift P 
+# Create New Blank Jupeter Notebook 실행
+
+
+# 여러행을 같이 지정하고, control / 하면 모든 행 앞에 # 표시가능
+
+name 'numpy'  is not defined , name 'np'  is not defined
+
+파이썬 name is not defined 에러는 3가지 종류가 있습니다. 
+
+​
+
+1. 해당 명령이 설치가 되어 있지않는경우
+
+    해당 문제는 아래 내용으로 설치하면 정상 작동합니다.
+
+​
+
+2. 사용 하려는 명령어를 import (import numpy as np) 명령을 사용한 경우
+
+코딩 첫부분 import 부분은 주의 해서 확인을 해야됩니다.
+
+numpy 라는 명칭 대신 np를 쓰기 때문에 이해가 어렵거나 명령어 사용시 에러가 나타 납니다.
+
+​
+
+ import 명령을 써서 해당 명령어는 약어로 사용하게 됩니다. 약어의 경우 모두가 동일 하게 사용하기로 약속이 되어 있기때문에 똑같이 명령어를 작성해주시는게 코딩오류가 안나는 방법입니다. 
+
+     ex) import numpy as np  => numpy 명령어를 앞으로는 np라고만 입력해서 사용할거라는 코드입니다.
+
+import matplotlib.pyplot as plt
+
+​
+
+ np.array........ 라고 되어있는 명령어는 원래 numpy.array 라고 생각하시면 됩니다. 
+
+코드가 길어지기 때문에 약어로 사용을 합니다.
+
+NameError: name 'np' is not defined
+
+NameError: name 'plt' is not defined
+
+​
+
+3. 명령어가 아닌 프로그래밍 코딩시 작성자가 직접 만든 변수
+
+해당 내용은 변수를 코딩작성자가 마음대로 ( 특정 명칭을 빼고 사용가능) 설정해서 사용가능 합니다.
+
+그러나 코드를 불러오거나, 이어지는 코드에서 중간만 사용하는경우 변수선언이 빠지면 에러메시지가 발생합니다.
+
+NameError: name 'a' is not defined
+
+​
+
+​
+
+인공지능 입문서를 보는중 명령어가 작동하지 않아서 사용 방법을 작성해 봅니다. 
+
+​
+
+책을 번역할때도 알아보기 좋게 해주면 좋겠습니다. 
+
+​
+
+***
+
+설치경로 찾는게 힘드신 분들은 설치를 다시해보시는 것을 추천드립니다.
+
+https://blog.naver.com/lcj8390/221980399989
+
+***
+
+​
+
+명령어 실행시 패키지가 설치되지  않았다면 아래와 같은 오류가 발생합니다.
+
+name numpy is not defined
+
+name scipy is not defined
+
+name matplotlib is not defined
+
+name ipython is not defined
+
+name scikit-learn is not defined
+
+name pandas is not defined
+
+name pillow is not defined
+
+name imageiois not defined
+
+name jupyteris not defined
+
+name mglearnis not defined
+
+name nltk spacyis not defined
+
+name anacondais not defined
+
+name tensorflow not defined
+
+name canopyis not defined
+
+name 'response' is not defined
+
+name 'mpmath' is not defined
+
+name 'sympy' is not defined
+
+name 'nose' is not defined
+
+name 'scipy' is not defined
+
+name 'snack' is not defined
+
+​
+
+​
+
+이방법으로 설치가능한 패키지
+
+numpy 
+
+scipy 
+
+matplotlib 
+
+ipython 
+
+scikit-learn 
+
+pandas 
+
+pillow 
+
+imageio
+
+jupyter
+
+mglearn
+
+nltk spacy
+
+anaconda
+
+canopy
+
+tensorflow
+
+response
+
+mpmath
+
+sympy
+
+nose
+
+scipy
+
+snack
+
+​
+
+이부분에서 안되는 분들은 파이썬을 찾기 쉬운 폴더에 설치해 주시됩니다.
+
+파이썬을 처음 설치할때   add Python 3.8 to PATH 옵션에 체크를 하고 설치 하시면 경로를 찾을 필요없이 바로 실행이 됩니다.  
+
+C:\python
+
+D:\python 
+
+​
+
+명령어 실행이 안될때의 상태
+
+
+​
+
+​
+
+​
+
+​
+
+파이썬이 설치된 폴더안의 scripts 폴더를 찾가 면 pip.exe가 있습니다. 
+
+​
+
+저는 경로를 최소화 하기 위해  D:\Python\Python38\ 에 설치 했습니다.
+
+D:\Python\Python38\scripts 폴더를 확인해 봅니다.
+
+(2020.06.02 확인결과 기본 설치 폴더가 c:\python38로 변경 되었습니다.)
+
+인스톨 명령을 사용하기 전엔 5개의 파일만 있는게 정상입니다.  
+
+​
+
+다른곳에 설치했다면 찾는 경로가 달라지는데요. 확인을 해보셔야 됩니다.
+
+파이썬 아이콘에 마우스 오른쪽으로 파일위치 열기로 검색 하시면 됩니다.
+
+
+​
+
+파이썬 설치 위치를 확인하셨다면 CMD를 찾아서 실행해 주시면 됩니다.
+
+시작 - windows 시스템 - 명령프롬프트 
+
+시작 버튼 옆의 "검색하려면 여기에 입력 하십시오. " 에 CMD를 입력하고 검색된걸 실행합니다.
+
+​
+
+
+​
+
+​
+
+새로 열린 명령 프롬프트에서 아래와 같이 입력 합니다. 모든 명령어 끝은 키보드 엔터키를 눌러 주시면 됩니다.
+
+설치경로가 저와 다르다면 입력을 본인의 위치에 맞게 입력하시면 됩니다.
+
+python 설치시 add Python 3.8 to PATH  옵션을 체크하고 설치 하신 분들은 명령어를 바로 넣어도 작동 됩니다.
+
+​
+
+D: 
+
+cd python
+
+cd python38
+
+cd scripts
+
+dir
+
+​
+
+​
+
+한번에 입력도 가능합니다.
+
+**
+
+d:
+
+cd python\python38\scripts
+
+**
+
+
+pip.exe 가 확인 됩니다. 
+
+​
+
+여기서 기존에 보시던 명령어를 입력 하고 엔터키를 눌러 주시면 됩니다.  
+
+아래 명령은 각각 따로 설치 되기 때문에 오타에 주의해서 입력해 주시면 됩니다.
+
+​
+
+pip install numpy scipy matplotlib ipython scikit-learn pandas pillow imageio jupyter mglearn nltk spacy anaconda canopy tensorflow response mpmath sympy nose scipy snack
+
+​
+
+pip 명령으로 설칙가 정상적으로 안되는 경우는 pip3   명령어로 입력 하시면 됩니다.
+
+pip3 install numpy scipy matplotlib ipython scikit-learn pandas pillow imageio jupyter mglearn nltk spacy anaconda canopy tensorflow response mpmath sympy nose scipy snack
+
+
+
+
+입력 대기 상태가 되면 설치가 완료된 상태 입니다. 
+
+​
+
+이후에는 명령어 실행이 잘 될것입니다. 
+
+​
+
+​
+
+​
+
+introduction to Machine Learning with Python 보시면서 안되는 분들이 도움되면 좋겠네요.
+
+책에서는 하나더 설치하라고 나오네요. 
+
+pip install nltk spacy
+
+pip3 install jupyter
+
+​
+
+#numpy #scipy #matplotlib #ipython #scikit-learn #pandas #pillow #imageio #jupyter #mglearn #nltk spacy #anaconda #canopy #tensorflow #response #mpmath #sympy #nose #scipy #snack
+[출처] Python pip install 사용방법, 필수 라이브러리와 도구 설치 pip3 install|작성자 시작
