@@ -244,6 +244,47 @@ plt.show()
 g = df_nor.hist(figsize=(10, 5), bins=20)
 plt.show()
 
+### 정규화 normalization ####################################
+### (측정값-최소값) / (최대값-최소값) ########################
+df2_nor = (df2-df2.min())/(df2.max() - df2.min())
+df2_nor.plot()
+plt.axhline(1, color='red', linestyle=':')
+plt.show()
+
+### 시작일 대비 현재 성장율 비교 ############################
+df2_gr = (df2/df2.iloc[0] - 1)
+df2_gr.plot()
+plt.axhline(1, color='red', linestyle=':')
+plt.show()
+
+### 여러개 그래프를 한번에 보여주기 ############################
+fig, axes = plt.subplots(1, 4, figsize=(15, 10))
+df2.plot(secondary_y=corp_name2, ax=axes[0], title='주가그래프')
+df2_nor.plot(ax=axes[2], title='Z-score 주가')
+df2_gr.plot(ax=axes[3], title='시작일 대비 성장')
+plt.show()
+
+g = df2_nor.hist(figsize=(10, 5), bins=20)
+plt.show()
+
+### 수익율 계산과 히스토그램 ############################
+
+df_bf_rate = (df / df.iloc[0] - 1)*100
+df_bf_rate.describe()
+h = df_bf_rate.hist(figsize=(15, 10))
+plt.show()
+
+### 왜도 (skew), 첨도 () ############################
+### 왜도 (skew) : 양수면 왼쪽으로치우친 그래프 ########
+### 첨도 (kurtosis) : 3 보다 크면 뽀족한 그래프 ########
+skew = df_bf_rate.skew()
+kurt = df_bf_rate.kurt()  # kurtosis()
+t = pd.concat([skew, kurt], axis=1)
+t.columns = ['왜도(skew)', '첨도(Kurt)']
+t.plot()
+h = df_bf_rate.hist(figsize=(15, 10))
+plt.show()
+
 
 # Anatomy of a figure
 # This figure shows the name of several matplotlib elements composing a figure
