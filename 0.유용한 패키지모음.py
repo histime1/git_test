@@ -21,3 +21,5 @@ import matplotlib.pyplot as plt  # statistical data visualization 시각화
 import seaborn as sns  # statistical data visualization 시각화
 import itertools as import  # 반복값 처리하는 패키지
 # %matplotlib inline : 쥬피터노트북에서 자동으로 그래프를 보여줌.
+
+# 1st update to Remote
