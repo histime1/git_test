@@ -328,10 +328,10 @@ df.shape[0]
 df.shape[1]  # df의 열의 갯수
 df.head()  # 컬럼 및 전체 모양
 
-# df['w'].value_counts() --> Count number of rows with each unique value of variable
+# df['w'].value_counts() --> column안에 unique한 값들의 갯수,
 df['species'].value_counts()
 
-# df['w'].nunique() --> # of distinct values in a column.
+# df['w'].nunique() --> # of distinct values in a column. 열에 있는 고유값의 갯수.
 df['species'].nunique()
 
 # 특정 column 컬럼의 uniq한 object를 추출. dataframe으로 저장
@@ -447,7 +447,11 @@ df = df.drop(['삭제할 컬럼명1', '삭제할 컬럼명2'], axis='columns')
 df = df.data.loc[:, ['남길 컬럼명1', '남길 컬럼명2']]
 
 # NA값만 삭제 =================
-df = df.dropna()
+df = df.dropna(how='all', axis=0)
+df = df.drop(['시장구분', '업종'], axis=1).dropna(how='all', axis=0)
+# axis = 0 row 행기준 =================
+# axis = 1 column 열기준 =================
+
 
 # 컬럼명 column명 변경 ==================================
 # 컬럼 column 1:1 매칭하여 변경
