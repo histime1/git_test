@@ -7,6 +7,8 @@
 #  - DDOS 공격으로 의심받을 수 있음.
 #  - time.sleep() 사용
 
+from pandas.io.json import json_normalize
+import json
 from io import BytesIO as bt
 import re  # 정규식 사용 라이브러리
 import requests as rq
@@ -162,3 +164,25 @@ df['퇴원현황'].value_counts()
 df.loc[0]
 update_date = df.loc[0]['확진일'].replace('-', '_')
 df.to_csv(f'{dir}seoul_covid19_status_{update_date}.csv', encoding='euc-kr')
+
+### requests 사용 일 경우 ###
+# html
+
+
+user_agent = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/87.0.4280.88 Safari/537.36"
+
+### 네이버 주식 종목 시세########
+### 삼성전자 -> 검사 -> Doc 부분의 Request URL을 확인.########
+# url = 'https://finance.naver.com/item/sise_day.nhn?code=005930&page=1'
+# table = pd.read_html(url, encoding='cp949')
+# len(table)
+# tb[11]
+### naver site 변경 - html로 안됨.########
+
+url = 'https://finance.naver.com/item/sise_day.nhn?code=005930&page=1'
+r = rq.get(url, headers={"user-agent": user_agent})
+wp = r.content.decode('euc-kr')  # 'utf-8') or 'cp949')
+tb = pd.read_html(wp)
+
+### json_data 사용 일 경우 ###
+json_data = json.loads(re.get(url).text)

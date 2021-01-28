@@ -446,8 +446,8 @@ df = df.drop(['삭제할 컬럼명1', '삭제할 컬럼명2'], axis=1)
 df = df.drop(['삭제할 컬럼명1', '삭제할 컬럼명2'], axis='columns')
 df = df.data.loc[:, ['남길 컬럼명1', '남길 컬럼명2']]
 
-# NA값만 삭제 =================
-df = df.dropna(how='all', axis=0)
+# NA값을 가진 행/열 삭제 =================
+df = df.dropna(how='all', axis=0) # how = 'any' 하나라도 있으면 제거
 df = df.drop(['시장구분', '업종'], axis=1).dropna(how='all', axis=0)
 # axis = 0 row 행기준 =================
 # axis = 1 column 열기준 =================
