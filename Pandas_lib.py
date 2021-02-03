@@ -275,6 +275,12 @@ df[df['Name'] == '빅히트']['Symbol'].tolist()  # list 형식으로
 df.loc[df['Name'] == '빅히트']['Symbol'].tolist()[0]  # 값으로
 df.loc[df['Name'] == '빅히트', 'Symbol'].tolist()[0]  # 값으로
 
+# index 변경
+df.set_index('Symbol', inplace=True)
+
+# index reset
+df.reset_index()
+
 # 정렬
 df.sort_values(by=['core_code', 'Period'])
 
@@ -447,7 +453,7 @@ df = df.drop(['삭제할 컬럼명1', '삭제할 컬럼명2'], axis='columns')
 df = df.data.loc[:, ['남길 컬럼명1', '남길 컬럼명2']]
 
 # NA값을 가진 행/열 삭제 =================
-df = df.dropna(how='all', axis=0) # how = 'any' 하나라도 있으면 제거
+df = df.dropna(how='all', axis=0)  # how = 'any' 하나라도 있으면 제거
 df = df.drop(['시장구분', '업종'], axis=1).dropna(how='all', axis=0)
 # axis = 0 row 행기준 =================
 # axis = 1 column 열기준 =================
@@ -544,9 +550,42 @@ df[["a", "b"]] = df[["a", "b"]].apply(pd.to_numeric, errors='coerce')
 df[["a", "b"]] = df[["a", "b"]].apply(pd.to_datetime, errors='coerce')
 df["c"] = pd.to_numeric(df["c"])
 
-# data type 변경
-# astype() 사용
+# data type 변경 ===============================
+# data의 min/max 등 표현가능한 범위 확인후 변경 ===================
+for dtype in ['int8', 'int16', 'int32', 'int64']:
+    print(np.iinfo(dtype))
+
+for dtype in ['uint8', 'uint16', 'uint32', 'uint64']:
+    print(np.iinfo(dtype))
+
+for dtype in ['float16', 'float32', 'float64']:
+    print(np.finfo(dtype))
+
+# astype() 사용  ===============================
 df.dtypes
+
+num = 10000000
+df = pd.DataFrame(
+    {'C1': pd.Series([1.0]*num, dtype='float'),
+     'C2': pd.Series([1]*num, dtype='int'),
+     'C3': pd.Series(['AAAAAAAAAA']*num, dtype='object')})
+
+df.info(memory_usage='deep')
+
+# float64 -> float32
+df.loc[:, ['C1']] = df.loc[:, ['C1']].astype('float32')
+df.loc[:, ['C1']].info(memory_usage='deep')
+# int64 -> int16
+df.loc[:, ['C2']] = df.loc[:, ['C2']].astype('int16')
+df.loc[:, ['C2']].info(memory_usage='deep')
+# object -> category
+df.loc[:, ['C3']] = df.loc[:, ['C3']].astype('category')
+df.loc[:, ['C3']].info(memory_usage='deep')
+
+# convert columns to complex type
+df = df.astype({'날짜': 'datetime64[D]', '종가': 'float16', '전일비': 'float16', '시가': 'float16'
+            , '고가': 'float16', '저가': 'float16', '거래량': 'float32', 'corp_code': 'category','corp_name': 'category',})
+df.info(memory_usage='deep')
 
 # convert all DataFrame columns to the int64 dtype
 df1 = df.astype(int)
@@ -569,6 +608,7 @@ s.dtypes
 # convert Series to categorical type - see docs for more details
 s = s.astype('category')
 s.dtypes
+
 
 # 년월일을 월일만 추출.
 # 슬리이싱 이용한 data 전처리 # datetime 형식을 쪼갤 수 없음.
@@ -732,6 +772,17 @@ for file in os.listdir(dir):
     print(file)
     df_new = pd.read_csv('{}{}'.format(dir, file), encoding='euc-kr')
     df = pd.concat([df, df_new])
+
+
+# update date 자동으로 화일명에 추가하는 방법 ============================
+df.loc[0]
+update_date = df.loc[0]['확진일'].replace('-', '_')
+df.to_csv(f'{dir}seoul_covid19_status_{update_date}.csv', encoding='euc-kr')
+
+# 숫자형 object type의 경우 csv로 저장시 numeric으로 인식, excel 사용권고
+df_krx.to_excel('{}krx.xlsx'.format(dir), encoding='utf-8', index=False)
+df = pd.read_excel('{}krx.xlsx'.format(dir), dtype={'Symbol': str})
+
 
 # Reshaping data ============================================
 # pd.melt 가로 -> 세로로 melt ================================
