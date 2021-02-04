@@ -305,7 +305,7 @@ df[(df.a == 5) and (df.b == 7)]  # Value값을 and 하므로 error
 
 # ================================================================================
 
-# unique 만 남김 -> Duplicates 제거
+# unique 만 남김 -> Duplicates 중복제거
 # subset을 통해 unique해당 항목을 선택, keep을 통해 first만 살릴지, last만 살릴지 결정.
 df = pd.DataFrame(
     {"a": [4, 5, 6, 6],
@@ -343,6 +343,11 @@ df['species'].nunique()
 # 특정 column 컬럼의 uniq한 object를 추출. dataframe으로 저장
 uq_sp = pd.DataFrame(df['species'].value_counts())
 uq_sp
+
+# column 컬럼 순서 변경==========================================================
+df.columns
+cols = ['corp_code', 'corp_name', '날짜', '종가', '전일비', '시가', '고가', '저가', '거래량']
+df = df[cols].copy()
 
 # 기초 통계 값 확인.==============================================================================
 
@@ -545,6 +550,9 @@ df["a"] = pd.to_numeric(df["a"], errors='coerce')
 df = df.apply(pd.to_numeric)
 df = df.apply(pd.to_datetime)
 
+# object 타입을 datetime타입으로 바꾼다
+df['a'] = pd.to_datetime(df['a'], format='%Y-%m-%d %H:%M:%S', errors='raise')
+
 # convert just columns "a" and "b"
 df[["a", "b"]] = df[["a", "b"]].apply(pd.to_numeric, errors='coerce')
 df[["a", "b"]] = df[["a", "b"]].apply(pd.to_datetime, errors='coerce')
@@ -583,8 +591,8 @@ df.loc[:, ['C3']] = df.loc[:, ['C3']].astype('category')
 df.loc[:, ['C3']].info(memory_usage='deep')
 
 # convert columns to complex type
-df = df.astype({'날짜': 'datetime64[D]', '종가': 'float16', '전일비': 'float16', '시가': 'float16'
-            , '고가': 'float16', '저가': 'float16', '거래량': 'float32', 'corp_code': 'category','corp_name': 'category',})
+df = df.astype({'날짜': 'datetime64[D]', '종가': 'float16', '전일비': 'float16', '시가': 'float16', '고가': 'float16',
+                '저가': 'float16', '거래량': 'float32', 'corp_code': 'category', 'corp_name': 'category', })
 df.info(memory_usage='deep')
 
 # convert all DataFrame columns to the int64 dtype
@@ -642,11 +650,13 @@ with open('A.txt') as A:
     A.read()
 
 # Pandas 사용 CSV 파일에서 불러오기  ================================================================
-
+# 00*** 로 되어진 object type을 불러오면 int float로 인식되는 경우, dtype = {'컬럼명' : np.object} 를 넣어준다.
 dir = 'H:/Python/workplace/'
-filename = 'pocket.csv'
-df = pd.read_csv('{}{}'.format(dir, filename))
-df
+filename = 'pocket'
+df = pd.read_csv(f'{dir}{filename}.csv', dtype={
+                 'corp_code': np.object}, encoding='euc-kr')
+
+df = pd.read_excel(f'{dir}{filename}.xlsx', dtype={'corp_code': str})
 
 # pocket.csv 예제 -> period, rcp_no, dcm_no의 컬럼으로 구성
 # 판다스로 불러올 경우, 제일앞에 index 값이 생김.
