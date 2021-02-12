@@ -1,0 +1,68 @@
+<설정 방법>(참고: https://niceman.tistory.com/85)
+
+1. 아래에서 Anaconda3-5.2.0-Windows-x86_64.exe 를 받아서 설치함
+https://repo.anaconda.com/archive/
+
+
+2. Anaconda Prompt 를 실행한 후, 32비트 가상환경을 만들어줌
+      ※ 어떤 버전의 아나콘다를 설치했는 지에 따라 파이썬 버전은 다를 수있으므로, 가상환경을 생성하기 전에
+         다음 명령어로 파이썬 버전을 미리 확인한다.
+         conda --version #20210210 기준 : 4.9.2
+         python --version #20210210 기준 64비트: 3.8
+         python --version #20210210 기준 32비트: 3.7
+         
+   1) 32비트 가상환경 생성
+       set CONDA_FORCE_32BIT=1 
+       conda create -n py37_32 python=3.7
+
+   2) 32비트 가상환경 활성화 방법
+      conda info --envs
+      set CONDA_FORCE_32BIT=1 
+      activate py37_32
+   3) 32비트 가상환경 비활성화 방법
+      deactivate py37_32
+
+3. 마찬가지 방법으로, 64비트 가상환경을 만들어줌
+  1) 64비트 가상환경 생성
+      set CONDA_FORCE_32BIT=0
+      conda create -n py38_64 python=3.8
+   2) 64비트 가상환경 활성화 방법
+      set CONDA_FORCE_32BIT=0 
+      activate py38_64
+   3) 64비트 가상환경 비활성화 방법
+      deactivate py38_64
+
+4. 키움증권 Open API 를 사용하는 파이썬 파일은 32비트 환경에서 실행
+   케라스를 사용하는 파이썬 파일은 64비트 환경에서 실행시키면 잘 돌아감
+
+5. 가상환경삭제
+   activate base
+   conda info --envs
+   conda remove -n py37_32 --all
+
+6. 가상환경복사 - 기능 없음.
+   activate base
+   conda info --envs
+   conda create -n 바꿀이름 --clone 원본이름
+   conda remove -n 원본이름 --all
+
+7. VSCODE-가상환경 연결
+Code-Runner 설치
+VS Code 실행 후
+Ctrl + Shift+ x
+Extention 검색 : Code Runner, 설치
+VS코드 재시작
+
+VS코드에서 코드실행
+Ctrl + Shift + p
+Python: Select Interpreter 검색, 엔터
+실행가능한 Python.exe 리스트에서 원하는 python 선택
+Ctrl + Alt + n = 마우스 오른클릭 Run python file in terminal 과 같음
+* 만약 Ctrl + Alt + n 이 되지 않는 경우
+1. Ctrl + ,
+2. code-runner: Run In Terminal 검색 후
+3. User Setting, Workspace Setting 에 check
+4. VS코드 재시작
+* 만약 Ctrl + Shift + P에서 콘다에서 만든 내 가상환경이 Select Python Interpreter에 안뜨는경우 
+1. 콘다 가상환경을 생성할 때 conda create -n myenvname 이런식으로 생성하면 목록에서 뜨지 않음
+2. 이 경우 처음부터 conda create -n myenvname python=3.x python 버전을 특정지어주면 해결되었음 해당 링크

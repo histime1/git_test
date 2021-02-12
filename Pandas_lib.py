@@ -1,5 +1,6 @@
 # Pandas 기초
 
+import datetime
 from io import BytesIO as bt
 from re import A
 from typing import ValuesView
@@ -336,6 +337,8 @@ df.head()  # 컬럼 및 전체 모양
 
 # df['w'].value_counts() --> column안에 unique한 값들의 갯수,
 df['species'].value_counts()
+df['species'].value_counts(normalize=True) * 100  # 100분율로 계산
+
 
 # df['w'].nunique() --> # of distinct values in a column. 열에 있는 고유값의 갯수.
 df['species'].nunique()
@@ -451,6 +454,26 @@ df3['F'] = df3.A ** df3.B
 df3
 df3.F = df2.A  # 생성된 컬럼 data 변경.
 df3
+
+# list 내부 값 추가
+# ex_list.append['추가값']
+# list 내부 값 삭제
+# del ex_list[-1]
+
+# dic 내부 값 추가
+# dic_name['key값'] = value값
+# dic_name.update({'key값':'value값'})
+# dic_name.update({'newkey값':'value값'})
+# dic 내부 값 삭제
+# del dic_name['key값']
+
+# 변수를 사용한 출력.=================================
+interest_stocks = ["Naver", "Samsung", "SK Hynix"]
+for company in interest_stocks:
+    print("%s: Buy 10" % company)
+# Naver: Buy 10
+# Samsung: Buy 10
+# SK Hynix: Buy 10
 
 # 컬럼명 column명만 삭제 = 특정열만 추출 =================
 df = df.drop(['삭제할 컬럼명1', '삭제할 컬럼명2'], axis=1)
@@ -617,6 +640,10 @@ s.dtypes
 s = s.astype('category')
 s.dtypes
 
+# 오늘 현재 날짜 시간을 입력
+today = datetime.datetime.today()
+today = today.strftime('%Y-%m-%d')
+
 
 # 년월일을 월일만 추출.
 # 슬리이싱 이용한 data 전처리 # datetime 형식을 쪼갤 수 없음.
@@ -648,15 +675,6 @@ todo = open('A.txt', mode='r+b', encoding='utf-8')
 
 with open('A.txt') as A:
     A.read()
-
-# Pandas 사용 CSV 파일에서 불러오기  ================================================================
-# 00*** 로 되어진 object type을 불러오면 int float로 인식되는 경우, dtype = {'컬럼명' : np.object} 를 넣어준다.
-dir = 'H:/Python/workplace/'
-filename = 'pocket'
-df = pd.read_csv(f'{dir}{filename}.csv', dtype={
-                 'corp_code': np.object}, encoding='euc-kr')
-
-df = pd.read_excel(f'{dir}{filename}.xlsx', dtype={'corp_code': str})
 
 # pocket.csv 예제 -> period, rcp_no, dcm_no의 컬럼으로 구성
 # 판다스로 불러올 경우, 제일앞에 index 값이 생김.
@@ -788,6 +806,20 @@ for file in os.listdir(dir):
 df.loc[0]
 update_date = df.loc[0]['확진일'].replace('-', '_')
 df.to_csv(f'{dir}seoul_covid19_status_{update_date}.csv', encoding='euc-kr')
+
+# Pandas 사용 CSV 파일에서 불러오기  ================================================================
+# 00*** 로 되어진 object type을 불러오면 int float로 인식되는 경우, dtype = {'컬럼명' : np.object} 를 넣어준다.
+dir = 'H:/Python/workplace/'
+filename = 'pocket'
+df = pd.read_csv(f'{dir}{filename}.csv', dtype={
+                 'corp_code': np.object}, encoding='euc-kr')
+
+df = pd.read_csv(f'{dir}{filename}.csv', converters=dict(
+    corp_code=str), encoding='euc-kr')
+df = pd.read_csv()
+
+
+df = pd.read_excel(f'{dir}{filename}.xlsx', dtype={'corp_code': str})
 
 # 숫자형 object type의 경우 csv로 저장시 numeric으로 인식, excel 사용권고
 df_krx.to_excel('{}krx.xlsx'.format(dir), encoding='utf-8', index=False)

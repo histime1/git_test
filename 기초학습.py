@@ -1,15 +1,22 @@
 
-# ===================================================================================
+#  print('%s' % )===================================================================================
 
-# Class
-
-# ===================================================================================
-
-### 문자형 ###
 from random import *
 from math import *
 import requests as rq
 from pandas.core.series import Series
+print('%s님 %s 시작을 %s' % ('김수한', '파이선', '환영합니다.'))
+# 변수를 사용한 출력.=================================
+interest_stocks = ["Naver", "Samsung", "SK Hynix"]
+for company in interest_stocks:
+    print("%s: Buy 10" % company)
+
+# Naver: Buy 10
+# Samsung: Buy 10
+# SK Hynix: Buy 10
+
+
+### 문자형 ###
 
 a = '나는 소년입니다.'
 print(a)
@@ -24,19 +31,17 @@ print(a, b)
 
 greet = 'hello everyone'
 type(greet)
-
+# 길이 츨정
 len(greet)  # 공란도 문자숫자로 인식
 
 greet = ''
 type(greet)
-
 len(greet)  # 빈문자열도 가능
 
 greet = 'hello'
 greet[0]
-greet[1]
+greet[1:4]
 greet[-1]  # 뒤에서 두번째
-
 
 # ===================================================================================
 
@@ -159,6 +164,18 @@ g3
 
 g2.keys()
 g2.values()
+print('key : %s, value : %s' % ('a', g2.get('c')))
+for key, value in g2.items():
+    print('key : %s, value : %s' % (key, value))
+g2.update({'b': 'TWO'})
+g2.update({'추가키': '추가값'})
+g2['b'] = 'two2'
+
+g4 = {'01234': {'b': 'two', 'c': 'three'}}
+print(g4['01234']['b'])
+print(g4.get('01234').get('b'))
+print(g4.keys())
+print(g4['01234'].keys())
 
 for i in g2.keys():
     print(i)
@@ -174,6 +191,50 @@ for i, j in zip(g2.keys(), g2.values()):  # items()로 대체 가능.
 
 for i, j in g2.items():
     print(i, j)
+
+################################################################################
+a_dict = {'023943': {'종목명': '삼광글라스', '등락율(%)': 0.0,
+                     '고가대비(%)': -0.97, '보유수량': 0, '현재가': 41050,
+                     '(최우선)매도호가': 41050}}
+
+a_dict.update({'000080': {'종목명': '하이트진로', '등락율(%)': 3.1,
+                          '고가대비(%)': -1.63, '보유수량': 0, '현재가': 21000,
+                          '(최우선)매도호가': 21000}})
+
+a_dict.keys()
+a_dict.values()
+# 1
+for value in a_dict.keys():
+    print(value)
+    if a_dict[value]['등락율(%)'] > 3.0 and a_dict[value]['현재가'] > 10000:
+        print('%s -- 매수완료 \n\t 상세데어터 : %s' %
+              (a_dict[value]['종목명'], a_dict[value]))
+    else:
+        print('매수되지 않았습니다.')
+
+a_dict = {'키움증권': 5000, '카카오': 3000, '네이버': 2000, '애플': 100000}
+my_account = 1000000
+
+for value in a_dict.keys():
+    if value == '키움증권':
+        my_account -= a_dict[value] * 5
+
+    elif value == '카카오':
+        my_account -= a_dict[value] * 2
+
+print('남은 금액 = %s' % my_account)
+
+
+a_dict = {'키움증권': 5000, '카카오': 3000, '네이버': 2000, '애플': 100000}
+ee_bool = True
+while ee_bool:
+    a_dict['키움증권'] = a_dict['키움증권'] + 1000
+
+    if a_dict['키움증권'] == 10000:
+        a_dict.update({'키움증권': 0})
+        break
+print(a_dict)
+
 
 # ===================================================================================
 
