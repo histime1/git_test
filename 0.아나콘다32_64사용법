@@ -46,6 +46,14 @@ https://repo.anaconda.com/archive/
    conda create -n 바꿀이름 --clone 원본이름
    conda remove -n 원본이름 --all
 
+### 가상환경에 package 설치방법
+Anaconda prompt 접속
+set CONDA_FORCE_32BIT=1 # 32bit 활성화
+activate py37_32
+conda install pandas # 설치시 32bit 인지 꼭 확인할것.
+pip install finance-datareader #conda에 없는 package의 경우
+
+
 7. VSCODE-가상환경 연결
 Code-Runner 설치
 VS Code 실행 후
