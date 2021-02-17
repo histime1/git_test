@@ -276,8 +276,9 @@ df[df['Name'] == '빅히트']['Symbol'].tolist()  # list 형식으로
 df.loc[df['Name'] == '빅히트']['Symbol'].tolist()[0]  # 값으로
 df.loc[df['Name'] == '빅히트', 'Symbol'].tolist()[0]  # 값으로
 
-# index 변경
+# index 변경 column을 index에 적용
 df.set_index('Symbol', inplace=True)
+df = df.set_index('종목코드')
 
 # index reset
 df.reset_index()

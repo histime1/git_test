@@ -1,6 +1,7 @@
 
 #  print('%s' % )===================================================================================
 
+import csv
 from random import *
 from math import *
 import requests as rq
@@ -346,3 +347,21 @@ a.split(maxsplit=2)
 a.split('.')
 b.split()
 b.split('\n')  # 행바꿈 '\n'
+
+
+# Python 리스트 list 화일로 저장 csv로 저장하기
+# 파이썬 모듈인 csv 모듈을 import하고 데이터는 날짜 데이터, 정수 데이터, 부동소수점 자료형 데이터가 있다고 가정했다. 엑셀로 그린다면 열 방향으로 그릴 것 같지만, 파이썬 리스트로 표현하여 행 방향으로 나열되었다.
+
+
+# list 만들기
+date = ['200801', '200802', '200803', '200804', '200805']
+val1 = [50, 100, 300, 150, 200]
+val2 = [2000.0, 2200.5, 2320.3, 2250.0, 2200.0]
+
+# csv파일로 적기
+# newline 설정을 안하면 한줄마다 공백있는 줄이 생긴다.
+with open('listfile.csv', 'w', newline='') as f:
+    writer = csv.writer(f)
+    writer.writerow(date)
+    writer.writerow(val1)
+    writer.writerow(val2)
