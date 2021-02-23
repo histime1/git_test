@@ -1,3 +1,5 @@
+import pandas as pd
+import numpy as np
 
 #  print('%s' % )===================================================================================
 
@@ -193,6 +195,27 @@ for i, j in zip(g2.keys(), g2.values()):  # items()로 대체 가능.
 for i, j in g2.items():
     print(i, j)
 
+##### dataFrame df의 컬럼 column을 사용하여 dict 만들기 #######
+
+my_stock = 'my_stock'
+dir = 'C:/Users/histi/py37_32/autostock/'
+df_all = pd.read_excel(
+    f'{dir}files/{my_stock}.xls', sheet_name=None, dtype={'종목코드': str})
+df_all.keys()
+concatted_df = pd.concat(df_all)
+concatted_df.columns
+df = concatted_df.drop(
+    ['Unnamed: 0', '매입단가', '매입수량', '메모'], axis=1).dropna(how='all', axis=0)
+df = df.drop_duplicates(subset=['종목코드'], keep='first')
+df = df.dropna(how='all', axis=1).reset_index()
+stock_code = df['종목코드'].values
+stock_n = df['종목명'].values
+stock_name = []
+for i in stock_n:
+    stock_name.append({'종목명': i})
+portfolio_stock_dict = dict(zip(stock_code, stock_name))
+
+
 ################################################################################
 a_dict = {'023943': {'종목명': '삼광글라스', '등락율(%)': 0.0,
                      '고가대비(%)': -0.97, '보유수량': 0, '현재가': 41050,
@@ -365,3 +388,8 @@ with open('listfile.csv', 'w', newline='') as f:
     writer.writerow(date)
     writer.writerow(val1)
     writer.writerow(val2)
+
+
+### 서식 formating ###############
+d = '1000'
+ds = format(int(d), ',')
